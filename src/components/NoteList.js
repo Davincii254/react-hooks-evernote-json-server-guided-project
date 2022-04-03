@@ -1,11 +1,16 @@
 import React from "react";
 import NoteItem from "./NoteItem";
 
-function NoteList() {
+function NoteList({list}) {
+
+  const noteList = list.map(note => (
+    <NoteItem title={note.title} caption={note.body.slice(0,20)}/>
+  ));
+
   return (
     <ul>
       {/* Render list of notes here... */}
-      <NoteItem />
+      {noteList}
     </ul>
   );
 }
