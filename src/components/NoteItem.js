@@ -1,8 +1,10 @@
 import React from "react";
 
-function NoteItem({title, caption}) {
+function NoteItem({title,caption, body, handleShow}) {
+
+
   return (
-    <li>
+    <li onClick={() => handleShow(title, body)}>
       <h2>{title}</h2>
       <p>{`${caption}...`}</p>
     </li>
