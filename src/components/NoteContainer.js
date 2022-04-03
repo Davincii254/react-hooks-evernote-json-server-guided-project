@@ -17,7 +17,7 @@ function NoteContainer() {
     <>
       <Search />
       <div className="container">
-        <Sidebar />
+        <Sidebar list={list}/>
         <Content />
       </div>
     </>
