@@ -1,10 +1,10 @@
 import React from "react";
 
-function NoteItem() {
+function NoteItem({title, caption}) {
   return (
     <li>
-      <h2>Title</h2>
-      <p>Caption...</p>
+      <h2>{title}</h2>
+      <p>{`${caption}...`}</p>
     </li>
   );
 }
