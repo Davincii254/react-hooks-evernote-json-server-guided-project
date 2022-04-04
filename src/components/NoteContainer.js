@@ -11,6 +11,7 @@ function NoteContainer() {
 
   const [search, setSearch] = useState("");
 
+
   useEffect( () => {
     fetch(`http://localhost:3000/notes`)
     .then(r => r.json())
@@ -19,11 +20,16 @@ function NoteContainer() {
 
   function handleShow(title, body){
     setShowItem({title: title, body: body});
-    //console.log(showItem);
   }
 
   function handleSearch(e){
     setSearch(e.target.value);
+  }
+
+
+  function handleCreate(){
+    const newNote = {title: "default", body: "placeholder"};
+    setList([...list, newNote]);
   }
 
   const filterList = list.filter( item => {
@@ -39,8 +45,14 @@ function NoteContainer() {
     <>
       <Search search={search} handleSearch={handleSearch}/>
       <div className="container">
-        <Sidebar list={filterList} handleShow={handleShow}/>
-        <Content showItem={showItem}/>
+        <Sidebar 
+        list={filterList} 
+        handleShow={handleShow}
+        handleCreate={handleCreate}
+        />
+        <Content 
+        showItem={showItem}
+        />
       </div>
     </>
   );
