@@ -13,17 +13,40 @@ import Instructions from "./Instructions";
 function Content({showItem}) {
 
   const [editBool, setEditBool] = useState(false);
+  const [editTitle, setEditTitle] = useState("");
+  const [editBody, setEditBody] = useState("");
 
-  function handleEdit(){
-    setEditBool((editBool) => !editBool);
-    //console.log(editBool);
+  function handleEditBtn(showItem = null){
+    if(!editBool){
+      setEditBool((editBool) => !editBool);
+      setEditTitle(showItem.title);
+      setEditBody(showItem.body);
+    }
+    else{
+      setEditBool((editBool) => !editBool);
+    }
+  }
+
+  function handleTitleEdit(e){
+    setEditTitle(e.target.value);
+  }
+
+  function handleBodyEdit(e){
+    setEditBody(e.target.value);
   }
 
   const getContent = () => {
     if (editBool) {
-      return <NoteEditor showItem={showItem}/>;
+      return <NoteEditor 
+        editTitle={editTitle}
+        handleTitleEdit={handleTitleEdit}
+        editBody={editBody}
+        handleBodyEdit={handleBodyEdit}
+        handleEditBtn={handleEditBtn}
+        />
+      ;
     } else if (Object.keys(showItem).length !== 0) {
-      return <NoteViewer showItem={showItem} handleEdit={handleEdit}/>;
+      return <NoteViewer showItem={showItem} handleEditBtn={handleEditBtn}/>;
     } else {
       return <Instructions />;
     }
