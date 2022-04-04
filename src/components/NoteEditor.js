@@ -1,13 +1,14 @@
 import React from "react";
 
-function NoteEditor({showItem}) {
+function NoteEditor({editTitle, handleTitleEdit, editBody, handleBodyEdit, handleEditBtn}) {
+  
   return (
     <form className="note-editor">
-      <input type="text" name="title" value={showItem.title}/>
-      <textarea name="body" value={showItem.body}/>
+      <input type="text" name="title" value={editTitle} onChange={handleTitleEdit}/>
+      <textarea name="body" value={editBody} onChange={handleBodyEdit}/>
       <div className="button-row">
         <input className="button" type="submit" value="Save" />
-        <button type="button">Cancel</button>
+        <button type="button" onClick={handleEditBtn}>Cancel</button>
       </div>
     </form>
   );
