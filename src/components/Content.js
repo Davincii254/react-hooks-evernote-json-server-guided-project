@@ -16,12 +16,12 @@ function Content({showItem}) {
 
   function handleEdit(){
     setEditBool((editBool) => !editBool);
-    console.log(editBool);
+    //console.log(editBool);
   }
 
   const getContent = () => {
     if (editBool) {
-      return <NoteEditor />;
+      return <NoteEditor showItem={showItem}/>;
     } else if (Object.keys(showItem).length !== 0) {
       return <NoteViewer showItem={showItem} handleEdit={handleEdit}/>;
     } else {
