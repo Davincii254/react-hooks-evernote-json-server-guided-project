@@ -11,12 +11,13 @@ function NoteContainer() {
 
   const [search, setSearch] = useState("");
 
+  const [updateList, setUpdateList] = useState(false);
 
   useEffect( () => {
     fetch(`http://localhost:3000/notes`)
     .then(r => r.json())
     .then(data => setList(data));
-  },[]);
+  },[updateList]);
 
   function handleShow(id, userId, title, body){
     setShowItem({id: id, userId: userId, title: title, body: body});
@@ -30,6 +31,10 @@ function NoteContainer() {
   function handleCreate(){
     const newNote = {userId: 1, title: "default", body: "placeholder"};
     setList([...list, newNote]);
+  }
+
+  function handleUpdateList(){
+    setUpdateList( (updateList) => !updateList);
   }
 
   const filterList = list.filter( item => {
@@ -53,6 +58,7 @@ function NoteContainer() {
         <Content 
         showItem={showItem}
         handleShow={handleShow}
+        handleUpdateList={handleUpdateList}
         />
       </div>
     </>
