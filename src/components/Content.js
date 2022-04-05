@@ -10,7 +10,7 @@ import Instructions from "./Instructions";
           Then complete the rest of your app before attempting to
           refactor to get this Content component to work.
 */
-function Content({showItem, handleShow}) {
+function Content({showItem, handleShow, handleUpdateList}) {
 
   const [editBool, setEditBool] = useState(false);
   const [editTitle, setEditTitle] = useState("");
@@ -43,7 +43,8 @@ function Content({showItem, handleShow}) {
     })
     .then(r => r.json())
     .then(data => {
-      handleShow(data.id, data.userId, data.title, data.body);
+      handleUpdateList();
+      handleShow(data.id, data.userId, data.title, data.body)
       handleEditBtn();
     });
   }
