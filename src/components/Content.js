@@ -10,7 +10,7 @@ import Instructions from "./Instructions";
           Then complete the rest of your app before attempting to
           refactor to get this Content component to work.
 */
-function Content({showItem}) {
+function Content({showItem, handleShow}) {
 
   const [editBool, setEditBool] = useState(false);
   const [editTitle, setEditTitle] = useState("");
@@ -27,6 +27,27 @@ function Content({showItem}) {
     }
   }
 
+  function handleSave(e){
+    e.preventDefault();
+
+    //console.log(id);
+    fetch(`http://localhost:3000/notes/${showItem.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify({
+        title: editTitle,
+        body: editBody
+      })
+    })
+    .then(r => r.json())
+    .then(data => {
+      handleShow(data.id, data.userId, data.title, data.body);
+      handleEditBtn();
+    });
+  }
+
   function handleTitleEdit(e){
     setEditTitle(e.target.value);
   }
@@ -37,12 +58,13 @@ function Content({showItem}) {
 
   const getContent = () => {
     if (editBool) {
-      return <NoteEditor 
+      return <NoteEditor
         editTitle={editTitle}
         handleTitleEdit={handleTitleEdit}
         editBody={editBody}
         handleBodyEdit={handleBodyEdit}
         handleEditBtn={handleEditBtn}
+        handleSave={handleSave}
         />
       ;
     } else if (Object.keys(showItem).length !== 0) {
