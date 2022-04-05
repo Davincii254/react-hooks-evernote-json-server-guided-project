@@ -18,8 +18,8 @@ function NoteContainer() {
     .then(data => setList(data));
   },[]);
 
-  function handleShow(title, body){
-    setShowItem({title: title, body: body});
+  function handleShow(id, userId, title, body){
+    setShowItem({id: id, userId: userId, title: title, body: body});
   }
 
   function handleSearch(e){
@@ -28,7 +28,7 @@ function NoteContainer() {
 
 
   function handleCreate(){
-    const newNote = {title: "default", body: "placeholder"};
+    const newNote = {userId: 1, title: "default", body: "placeholder"};
     setList([...list, newNote]);
   }
 
@@ -52,6 +52,7 @@ function NoteContainer() {
         />
         <Content 
         showItem={showItem}
+        handleShow={handleShow}
         />
       </div>
     </>
