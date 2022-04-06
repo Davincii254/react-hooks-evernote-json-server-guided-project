@@ -5,6 +5,7 @@ import Content from "./Content";
 
 function NoteContainer() {
 
+  
   const [list, setList] = useState([]);
 
   const [showItem, setShowItem] = useState({});
@@ -16,7 +17,8 @@ function NoteContainer() {
   useEffect( () => {
     fetch(`http://localhost:3000/notes`)
     .then(r => r.json())
-    .then(data => setList(data));
+    .then(data => setList(data))
+    .catch(error => alert(error));
   },[updateList]);
 
   function handleShow(id, userId, title, body){
@@ -29,8 +31,22 @@ function NoteContainer() {
 
 
   function handleCreate(){
-    const newNote = {userId: 1, title: "default", body: "placeholder"};
-    setList([...list, newNote]);
+
+    fetch(`http://localhost:3000/notes`, {
+      method: "POST",
+      headers:{
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        userId: 1, 
+        title: "default", 
+        body: "placeholder"
+      })
+    })
+    .then(r => r.json())
+    .then(data => setList([...list, data]));
+
   }
 
   function handleUpdateList(){
