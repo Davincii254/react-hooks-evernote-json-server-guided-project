@@ -6,7 +6,7 @@ import Content from "./Content";
 function NoteContainer() {
 
   
-  const [list, setList] = useState([]);
+  const [noteList, setNoteList] = useState([]);
 
   const [showItem, setShowItem] = useState({});
 
@@ -17,7 +17,7 @@ function NoteContainer() {
   useEffect( () => {
     fetch(`http://localhost:3000/notes`)
     .then(r => r.json())
-    .then(data => setList(data))
+    .then(data => setNoteList(data))
     .catch(error => alert(error));
   },[updateList]);
 
@@ -29,9 +29,7 @@ function NoteContainer() {
     setSearch(e.target.value);
   }
 
-
   function handleCreate(){
-
     fetch(`http://localhost:3000/notes`, {
       method: "POST",
       headers:{
@@ -45,7 +43,8 @@ function NoteContainer() {
       })
     })
     .then(r => r.json())
-    .then(data => setList([...list, data]));
+    .then(data => setNoteList([...noteList, data]))
+    .catch(error => alert(error));
 
   }
 
@@ -53,7 +52,13 @@ function NoteContainer() {
     setUpdateList( (updateList) => !updateList);
   }
 
-  const filterList = list.filter( item => {
+  function handleDeleteItem(deleteItem){
+    const newList = noteList.filter(item => item.id !== deleteItem.id);
+    setNoteList(newList);
+    setShowItem({});
+  }
+
+  const filterList = noteList.filter( item => {
     if(search !== ""){
       return item.title.includes(search);
     }
@@ -75,6 +80,7 @@ function NoteContainer() {
         showItem={showItem}
         handleShow={handleShow}
         handleUpdateList={handleUpdateList}
+        handleDeleteItem={handleDeleteItem}
         />
       </div>
     </>
