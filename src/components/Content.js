@@ -30,13 +30,14 @@ function Content({showItem, handleShow, handleUpdateList}) {
   function handleSave(e){
     e.preventDefault();
 
-    //console.log(id);
     fetch(`http://localhost:3000/notes/${showItem.id}`, {
       method: "PATCH",
       headers: {
-        "Content-type": "application/json"
+        "Content-Type": "application/json",
+        "Accept": "application/json"
       },
       body: JSON.stringify({
+        userId: 1,
         title: editTitle,
         body: editBody
       })
