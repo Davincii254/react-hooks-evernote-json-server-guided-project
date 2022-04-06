@@ -10,7 +10,7 @@ import Instructions from "./Instructions";
           Then complete the rest of your app before attempting to
           refactor to get this Content component to work.
 */
-function Content({showItem, handleShow, handleUpdateList}) {
+function Content({showItem, handleShow, handleUpdateList, handleDeleteItem}) {
 
   const [editBool, setEditBool] = useState(false);
   const [editTitle, setEditTitle] = useState("");
@@ -47,7 +47,8 @@ function Content({showItem, handleShow, handleUpdateList}) {
       handleUpdateList();
       handleShow(data.id, data.userId, data.title, data.body)
       handleEditBtn();
-    });
+    })
+    .catch(error => alert(error));
   }
 
   function handleTitleEdit(e){
@@ -70,7 +71,12 @@ function Content({showItem, handleShow, handleUpdateList}) {
         />
       ;
     } else if (Object.keys(showItem).length !== 0) {
-      return <NoteViewer showItem={showItem} handleEditBtn={handleEditBtn}/>;
+      return <NoteViewer 
+        showItem={showItem} 
+        handleEditBtn={handleEditBtn}
+        handleDeleteItem={handleDeleteItem}
+        />
+      ;
     } else {
       return <Instructions />;
     }
