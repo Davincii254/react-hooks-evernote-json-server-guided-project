@@ -3,8 +3,7 @@ import Search from "./Search";
 import Sidebar from "./Sidebar";
 import Content from "./Content";
 
-function NoteContainer() {
-
+function NoteContainer({isLoggedIn}) {
   
   const [noteList, setNoteList] = useState([]);
 
@@ -17,11 +16,18 @@ function NoteContainer() {
   const [sortAlpha, setSortAlpha] = useState(false);
 
   useEffect( () => {
-    fetch(`http://localhost:3000/notes`)
+    if(isLoggedIn){
+      fetch(`http://localhost:3000/notes`)
     .then(r => r.json())
     .then(data => setNoteList(data))
     .catch(error => alert(error));
-  },[updateList]);
+    }
+    else{
+      setNoteList([]);
+      setShowItem({});
+      setSortAlpha(false);
+    }
+  },[isLoggedIn,updateList]);
 
   function handleShow(id, userId, title, body){
     setShowItem({id: id, userId: userId, title: title, body: body});
@@ -47,7 +53,6 @@ function NoteContainer() {
     .then(r => r.json())
     .then(data => setNoteList([...noteList, data]))
     .catch(error => alert(error));
-
   }
 
   function handleUpdateList(){
