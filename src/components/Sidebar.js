@@ -1,13 +1,14 @@
 import React from "react";
 import NoteList from "./NoteList";
 
-function Sidebar({list, handleShow, handleCreate}) {
+function Sidebar({list, handleShow, handleCreate, isLoggedIn}) {
+
 
 
   return (
     <div className="master-detail-element sidebar">
       <NoteList list={list} handleShow={handleShow}/>
-      <button onClick={handleCreate}>New</button>
+      {isLoggedIn ? <button onClick={handleCreate}>New</button>: null}
     </div>
   );
 }
