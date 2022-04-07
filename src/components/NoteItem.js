@@ -1,6 +1,6 @@
 import React from "react";
 
-function NoteItem({id, userId, title, caption, body, handleShow}) {
+function NoteItem({id, userId, title = "default", caption = "placeholder...", body = "placeholder...", handleShow}) {
 
 
   return (
