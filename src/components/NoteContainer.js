@@ -14,6 +14,8 @@ function NoteContainer() {
 
   const [updateList, setUpdateList] = useState(false);
 
+  const [sortAlpha, setSortAlpha] = useState(false);
+
   useEffect( () => {
     fetch(`http://localhost:3000/notes`)
     .then(r => r.json())
@@ -58,9 +60,17 @@ function NoteContainer() {
     setShowItem({});
   }
 
+  function handleSortAlpha(e){
+    setSortAlpha(e.target.checked);
+  }
+
+  if(sortAlpha){
+    noteList.sort( (first, second) => first.title.localeCompare(second.title));
+  }
+
   const filterList = noteList.filter( item => {
     if(search !== ""){
-      return item.title.includes(search);
+      return item.title.toLowerCase().includes(search);
     }
     else{
       return true;
@@ -69,7 +79,12 @@ function NoteContainer() {
 
   return (
     <>
-      <Search search={search} handleSearch={handleSearch}/>
+      <Search 
+      search={search} 
+      handleSearch={handleSearch}
+      sortAlpha={sortAlpha}
+      handleSortAlpha={handleSortAlpha}
+      />
       <div className="container">
         <Sidebar 
         list={filterList} 
