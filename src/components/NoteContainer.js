@@ -95,6 +95,7 @@ function NoteContainer({isLoggedIn}) {
         list={filterList} 
         handleShow={handleShow}
         handleCreate={handleCreate}
+        isLoggedIn={isLoggedIn}
         />
         <Content 
         showItem={showItem}

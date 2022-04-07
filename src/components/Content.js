@@ -29,7 +29,7 @@ function Content({showItem, handleShow, handleUpdateList, handleDeleteItem}) {
 
   function handleSave(e){
     e.preventDefault();
-
+    
     fetch(`http://localhost:3000/notes/${showItem.id}`, {
       method: "PATCH",
       headers: {
